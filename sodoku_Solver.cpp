@@ -9,13 +9,23 @@ Write your code in this editor and press "Run" button to compile and execute it.
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
-using namespace std;
-#define empty 0
 #define N 9
-bool isGridSafe(int grid[N][N], int row, int col, int num);
-bool isEmptyLocation(int grid[N][N],int &row,int &col);
-/* assign values to all the zero (not assigned) values for Sudoku solution
- */
+#define empty 0
+using namespace std;
+
+/* Checking  entries that don't possess a value. */
+bool isEmptyLocation(int grid[N][N], int &row, int &col)
+{
+    for (row=0;row<9;row++){
+        for (col=0;col<N;col++){
+            if (grid[row][col] == empty){return true;}
+        }
+    }
+    return false;
+}
+
+bool isGridSafe(int grid[N][N], int row, int col, int num);////checking if a number can be assigned or not to the grid cell
+
 bool SolveSudoku(int grid[N][N])
 {
     int row, col;
@@ -31,17 +41,6 @@ bool SolveSudoku(int grid[N][N])
     }
     return false;
 }
-/* Checking  entries that don't possess a value. */
-bool isEmptyLocation(int grid[N][N], int &row, int &col)
-{
-    for (row=0;row<9;row++){
-        for (col=0;col<N;col++){
-            if (grid[row][col] == empty){return true;}
-        }
-    }
-    return false;
-}
-
 
 // Check for number already present in row
 bool UsedInRow(int grid[N][N],int p_row,int number)
@@ -57,7 +56,7 @@ bool UsedInCol(int grid[N][N],int p_col,int number)
 {
     for (int row=0;row<N;row++){
         if (grid[row][p_col]==number){return true;}
-    
+
   else {return false;}
     }
 }
@@ -90,21 +89,16 @@ void printResult(int finalgrid[N][N])
     }
 }
 
-
 /* Main code */
 int main()
-{
-    int grid[N][N];
-    
+{int grid[N][N];
     for(int i=0;i<N;i++){
                   for(int j=0;j<N;j++){
                       cin>>grid[i][j];
                   }
 }
 
-
 if (SolveSudoku(grid)==true){printResult(grid);}
 else{cout<<"No solution"<<endl;}
-    
 return 0;
 }
